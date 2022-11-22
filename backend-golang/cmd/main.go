@@ -2,12 +2,14 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/MikhailFerapontow/school"
 	"github.com/MikhailFerapontow/school/pkg/handler"
 	"github.com/MikhailFerapontow/school/pkg/repository"
 	"github.com/MikhailFerapontow/school/pkg/service"
 	"github.com/spf13/viper"
+	"github.com/subosito/gotenv"
 )
 
 func main() {
@@ -16,11 +18,15 @@ func main() {
 		log.Fatalf("Error during config initialization. Error message: %s", err.Error())
 	}
 
+	if err := gotenv.Load(); err != nil {
+		log.Fatalf("Error during gotenv initialization. Error message: %s", err.Error())
+	}
+
 	db, err := repository.NewMSSqlDB(repository.Config{
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
 		UserName: viper.GetString("db.user"),
-		Password: viper.GetString("db.password"),
+		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   viper.GetString("db.database"),
 	})
 
