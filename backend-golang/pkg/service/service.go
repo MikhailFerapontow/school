@@ -1,8 +1,12 @@
 package service
 
-import "github.com/MikhailFerapontow/school/pkg/repository"
+import (
+	"github.com/MikhailFerapontow/school"
+	"github.com/MikhailFerapontow/school/pkg/repository"
+)
 
 type Guardian interface {
+	GetAll() ([]school.Guardian, error)
 }
 
 type Service struct {
@@ -10,5 +14,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Guardian: NewGuardianService(repos.Guardian),
+	}
 }

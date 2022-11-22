@@ -18,7 +18,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	guardians := router.Group("/guardian")
 	{
-		guardians.GET("/", h.getAllGuardians)
+		guardians.GET("", h.getAllGuardians)
+		guardians.POST("", h.createGuardian)
 	}
 
 	return router

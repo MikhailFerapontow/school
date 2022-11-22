@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"database/sql"
 	"fmt"
 
 	_ "github.com/denisenkom/go-mssqldb"
+	"github.com/jmoiron/sqlx"
 )
 
 type Config struct {
@@ -15,9 +15,9 @@ type Config struct {
 	DBName   string
 }
 
-func NewMSSqlDB(cfg Config) (*sql.DB, error) {
+func NewMSSqlDB(cfg Config) (*sqlx.DB, error) {
 
-	db, err := sql.Open("sqlserver", fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s&connection+timeout=30",
+	db, err := sqlx.Open("sqlserver", fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s&connection+timeout=30",
 		cfg.UserName, cfg.Password, cfg.Host, cfg.Port, cfg.DBName))
 
 	if err != nil {
