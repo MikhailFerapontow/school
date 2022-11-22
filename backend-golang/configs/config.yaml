@@ -1,1 +1,8 @@
 port: "8081"
+
+db:
+  host:     "localhost"
+  port:     "1433"
+  user: "sa"
+  password: "Mushroom1!"
+  database:   "school"
