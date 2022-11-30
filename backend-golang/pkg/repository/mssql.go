@@ -7,6 +7,20 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+const (
+	UserTable            = "User"
+	UserRoleTable        = "User_role"
+	StudentTable         = "Student"
+	GuardianTable        = "Guardian"
+	TeacherTable         = "Teacher"
+	CalendarTable        = "Calendar"
+	SubjectTable         = "Subject"
+	ClassroomTable       = "Classroom"
+	GradeTable           = "Grade"
+	StudentGuardianTable = "student_guardian"
+	StudentCalendarTable = "student_calendar"
+)
+
 type Config struct {
 	Host     string
 	Port     string
