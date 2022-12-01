@@ -31,11 +31,13 @@ func (h *Handler) signUpStudent(c *gin.Context) {
 
 	if err := c.BindJSON(&input); err != nil {
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	err := h.services.RegisterStudent(input)
 	if err != nil {
 		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -48,11 +50,13 @@ func (h *Handler) signUpTeacher(c *gin.Context) {
 
 	if err := c.BindJSON(&input); err != nil {
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	err := h.services.RegisterTeacher(input)
 	if err != nil {
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
