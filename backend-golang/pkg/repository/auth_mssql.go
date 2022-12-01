@@ -49,3 +49,12 @@ func (r *AuthMSSQL) RegisterTeacher(teacher school.RegisterTeacher) error {
 
 	return nil
 }
+
+func (r *AuthMSSQL) GetUser(login, password string) (string, error) {
+	var user string
+	query := fmt.Sprintf("SELECT login FROM [User] WHERE login = '%s' AND password = '%s'", login, password)
+
+	err := r.db.Get(&user, query)
+
+	return user, err
+}

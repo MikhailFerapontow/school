@@ -9,6 +9,7 @@ type Authorization interface {
 	RegisterAdmin(school.RegisterAdmin) error
 	RegisterStudent(school.RegisterStudent) error
 	RegisterTeacher(school.RegisterTeacher) error
+	GenerateToken(username, passwrod string) (string, error)
 }
 
 type Guardian interface {

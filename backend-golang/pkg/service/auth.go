@@ -3,13 +3,24 @@ package service
 import (
 	"crypto/sha1"
 	"fmt"
+	"time"
 
 	"github.com/MikhailFerapontow/school"
 	"github.com/MikhailFerapontow/school/pkg/repository"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/sirupsen/logrus"
 )
 
-const salt = "ghdkgn22ad4xck"
+const (
+	salt      = "ghdkgn22ad4xck"
+	TokenTTL  = 12 * time.Hour
+	TokenSign = "qcbfn#4adfcdfe34z"
+)
+
+type TokenClaims struct {
+	jwt.StandardClaims
+	Login string `json:"login"`
+}
 
 type AuthService struct {
 	repo repository.Auth
@@ -40,6 +51,23 @@ func (s *AuthService) RegisterTeacher(teacher school.RegisterTeacher) error {
 	logrus.Printf("Binded Json %s, %s", teacher.Login, teacher.Password)
 
 	return s.repo.RegisterTeacher(teacher)
+}
+
+func (s *AuthService) GenerateToken(login, password string) (string, error) {
+	login, err := s.repo.GetUser(login, password) //TODO generatePasswordHash(password)
+	if err != nil {
+		return "", err
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &TokenClaims{
+		jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(TokenTTL).Unix(),
+			IssuedAt:  time.Now().Unix(),
+		},
+		login,
+	})
+
+	return token.SignedString([]byte(TokenSign))
 }
 
 func (s *AuthService) generatePasswordHash(password string) string {

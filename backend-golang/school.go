@@ -34,7 +34,7 @@ type RegisterTeacher struct {
 }
 
 type User struct {
-	Login    string `json:"login"`
+	Login    string `json:"login" db:"login"`
 	Password string `json:"password" binding:"required"`
 	Role_id  int    `json:"role_id" binding:"required"`
 	IsActive bool   `json:"isActive" binding:"required"`
