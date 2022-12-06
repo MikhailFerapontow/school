@@ -11,6 +11,7 @@ type Authorization interface {
 	RegisterTeacher(school.RegisterTeacher) error
 	GenerateToken(username, passwrod string) (string, error)
 	ParseToken(token string) (string, error)
+	GetUserRole(login any) (string, error)
 }
 
 type Guardian interface {

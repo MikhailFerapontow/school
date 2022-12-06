@@ -16,26 +16,32 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	auth := router.Group("/auth")
+	signIn := router.Group("/signIn")
 	{
-		auth.POST("/signUpAdmin", h.signUpAdmin)
-		auth.POST("/signUpTeacher", h.signUpTeacher)
-		auth.POST("/signUpStudent", h.signUpStudent)
-		auth.GET("/signIn", h.signIn)
+		signIn.GET("", h.signIn)
 	}
 
 	api := router.Group("/api", h.userIdentity)
 	{
+
+		auth := router.Group("/auth")
+		{
+			auth.POST("/signUpAdmin", h.signUpAdmin)
+			auth.POST("/signUpTeacher", h.signUpTeacher)
+			auth.POST("/signUpStudent", h.signUpStudent)
+		}
+
 		classroom := api.Group("/class")
 		{
 			classroom.GET("", h.getClassroom)
 		}
-	}
 
-	guardians := router.Group("/guardian")
-	{
-		guardians.GET("", h.getAllGuardians)
-		guardians.POST("", h.createGuardian)
+		guardians := router.Group("/guardian")
+		{
+			guardians.GET("", h.getAllGuardians)
+			guardians.POST("", h.createGuardian)
+		}
+
 	}
 
 	return router

@@ -92,6 +92,15 @@ func (s *AuthService) ParseToken(accessToken string) (string, error) {
 	return claims.Login, nil
 }
 
+func (s *AuthService) GetUserRole(login any) (string, error) {
+	role, err := s.repo.GetUserRole(login)
+	if err != nil {
+		return "", errors.New("Forbid acess")
+	}
+
+	return role, nil
+}
+
 func (s *AuthService) generatePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))

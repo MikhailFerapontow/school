@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/MikhailFerapontow/school"
@@ -88,4 +89,18 @@ func (h *Handler) signIn(c *gin.Context) {
 		"token": token,
 	})
 
+}
+
+func (h *Handler) getUserRole(c *gin.Context) (string, error) {
+	login, ok := c.Get(userCtx)
+	if !ok {
+		return "", errors.New("empty context")
+	}
+
+	role, err := h.services.Authorization.GetUserRole(login)
+	if err != nil {
+		return "", err
+	}
+
+	return role, nil
 }

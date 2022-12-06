@@ -7,8 +7,19 @@ import (
 )
 
 func (h *Handler) getClassroom(c *gin.Context) {
-	login, _ := c.Get(userCtx)
+	role, err := h.getUserRole(c)
+
+	if err != nil {
+		NewErrorResponse(c, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	if role != "student" {
+		NewErrorResponse(c, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"login": login,
+		"role": role,
 	})
 }

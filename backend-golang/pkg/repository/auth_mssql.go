@@ -57,3 +57,12 @@ func (r *AuthMSSQL) GetUser(login, password string) (string, error) {
 
 	return user, err
 }
+
+func (r *AuthMSSQL) GetUserRole(login any) (string, error) {
+	var role string
+	query := fmt.Sprintf("SELECT role_name FROM User_role JOIN [User] ON [User].role_id = User_role.role_id WHERE [User].login = '%s'", login)
+
+	err := r.db.Get(&role, query)
+
+	return role, err
+}
