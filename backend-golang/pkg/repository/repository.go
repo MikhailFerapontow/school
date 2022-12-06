@@ -14,6 +14,7 @@ type Auth interface {
 }
 
 type Guardian interface {
+	CreateGuardian(school.GuardianInput) error
 	GetAll() ([]school.Guardian, error)
 }
 

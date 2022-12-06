@@ -33,7 +33,6 @@ func newAuthService(repo repository.Auth) *AuthService {
 
 func (s *AuthService) RegisterAdmin(adm school.RegisterAdmin) error {
 	adm.Password = s.generatePasswordHash(adm.Password)
-	logrus.Printf("Binded JSON, %s, %s", adm.Login, adm.Password)
 
 	return s.repo.RegisterAdmin(adm)
 }

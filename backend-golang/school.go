@@ -1,12 +1,16 @@
 package school
 
 type Guardian struct {
-	Guardian_id int    `json:"guadian_id"`
-	Name        string `json:"name" db:"name"`
-	Surname     string `json:"surname" db:"surname"`
-	Gender      string `json:"gender" db:"gender"`
-	Phone       string `json:"phone" db:"phone"`
-	Email       string `json:"email" db:"email"`
+	Guardian_id int `json:"guadian_id"`
+	GuardianInput
+}
+
+type GuardianInput struct {
+	Name    string `json:"name" db:"name" binding:"required"`
+	Surname string `json:"surname" db:"surname" binding:"required"`
+	Gender  string `json:"gender" db:"gender" binding:"required"`
+	Phone   string `json:"phone" db:"phone" binding:"required"`
+	Email   string `json:"email" db:"email" binding:"required"`
 }
 
 type Teacher struct {

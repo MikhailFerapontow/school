@@ -104,3 +104,24 @@ func (h *Handler) getUserRole(c *gin.Context) (string, error) {
 
 	return role, nil
 }
+
+func (h *Handler) CheckRole(c *gin.Context, roles ...string) error {
+	role, err := h.getUserRole(c)
+
+	if err != nil {
+		return err
+	}
+	var flag bool
+
+	for _, elem := range roles {
+		if role == elem {
+			flag = true
+		}
+	}
+
+	if !flag {
+		return errors.New("Unauthorized")
+	}
+
+	return nil
+}

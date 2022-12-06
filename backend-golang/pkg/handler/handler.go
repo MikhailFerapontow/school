@@ -23,7 +23,6 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("/api", h.userIdentity)
 	{
-
 		auth := router.Group("/auth")
 		{
 			auth.POST("/signUpAdmin", h.signUpAdmin)
@@ -36,12 +35,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			classroom.GET("", h.getClassroom)
 		}
 
-		guardians := router.Group("/guardian")
+		guardians := api.Group("/guardian")
 		{
 			guardians.GET("", h.getAllGuardians)
 			guardians.POST("", h.createGuardian)
 		}
-
 	}
 
 	return router
