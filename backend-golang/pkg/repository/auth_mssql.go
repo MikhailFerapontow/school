@@ -30,7 +30,6 @@ func (r *AuthMSSQL) RegisterStudent(student school.RegisterStudent) error {
 		student.Login, student.Password, student.Name, student.Surname, student.Gender, student.Phone, student.Email)
 
 	_, err := r.db.Query(query)
-
 	if err != nil {
 		return err
 	}

@@ -10,6 +10,7 @@ type Authorization interface {
 	RegisterStudent(school.RegisterStudent) error
 	RegisterTeacher(school.RegisterTeacher) error
 	GenerateToken(username, passwrod string) (string, error)
+	ParseToken(token string) (string, error)
 }
 
 type Guardian interface {

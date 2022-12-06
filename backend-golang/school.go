@@ -9,6 +9,19 @@ type Guardian struct {
 	Email       string `json:"email" db:"email"`
 }
 
+type Teacher struct {
+	Teacher_id int    `json:"teacher_id"`
+	Fullname   string `json:"fullname" db:"fullname"`
+	Gender     string `json:"gender" db:"gender"`
+	Phone      string `json:"phone" db:"phone"`
+	Email      string `json:"email" db:"email"`
+}
+
+type Subject struct {
+	Subject_id int    `json:"subject_id"`
+	Name       string `json:"name" db:"name"`
+}
+
 type RegisterAdmin struct {
 	Login    string `json:"login"`
 	Password string `json:"password" binding:"required"`

@@ -24,6 +24,14 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.GET("/signIn", h.signIn)
 	}
 
+	api := router.Group("/api", h.userIdentity)
+	{
+		classroom := api.Group("/class")
+		{
+			classroom.GET("", h.getClassroom)
+		}
+	}
+
 	guardians := router.Group("/guardian")
 	{
 		guardians.GET("", h.getAllGuardians)
